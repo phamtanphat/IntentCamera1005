@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -16,6 +18,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.URI;
 
 public class MainActivity extends Activity {
     Button btnCamera,btnGallery;
@@ -81,6 +87,18 @@ public class MainActivity extends Activity {
             //Bitmap kiểu dữ liệu thông dụng của hình ảnh
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             img.setImageBitmap(bitmap);
+        }
+        if (requestCode == Request_Gallery && resultCode == RESULT_OK && data != null){
+            //Bitmap kiểu dữ liệu thông dụng của hình ảnh
+            Uri uri = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                img.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

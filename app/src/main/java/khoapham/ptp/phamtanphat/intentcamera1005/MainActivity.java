@@ -2,6 +2,9 @@ package khoapham.ptp.phamtanphat.intentcamera1005;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 public class MainActivity extends Activity {
     Button btnCamera,btnGallery;
     ImageView img;
+
     int Request_Camera = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +29,22 @@ public class MainActivity extends Activity {
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Check quyền camera có trong manifest
                 ActivityCompat.requestPermissions(
                         MainActivity.this,
                         new String[]{Manifest.permission.CAMERA},
                         Request_Camera);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == Request_Camera){
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

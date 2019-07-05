@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -53,7 +54,9 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        if (requestCode == Request_Camera && resultCode == RESULT_OK && data != null){
+            Log.d("BBB",data.toString() + "");
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 }

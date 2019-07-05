@@ -65,8 +65,11 @@ public class MainActivity extends Activity {
         }
         if (requestCode == Request_Gallery){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent , Request_Camera);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_PICK);
+                //liệt kê tất cả ứng dụng có thể xem được ảnh
+                intent.setType("image/*");
+                startActivityForResult(intent , Request_Gallery);
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
